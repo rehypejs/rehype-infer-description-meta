@@ -43,7 +43,7 @@ import {truncate} from 'hast-util-truncate'
 /**
  * Plugin to infer file metadata from the document.
  *
- * @type {import('unified').Plugin<[Options?]|[], Root>}
+ * @type {import('unified').Plugin<[Options?]|Array<void>, Root>}
  */
 export default function rehypeInferDescriptionMeta(options = {}) {
   const {
