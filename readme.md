@@ -8,35 +8,70 @@
 [![Backers][backers-badge]][collective]
 [![Chat][chat-badge]][chat]
 
-[**rehype**][rehype] plugin to infer file metadata from the document.
-This plugin sets `file.data.meta.description`.
-This is mostly useful with [`rehype-meta`][rehype-meta].
+**[rehype][]** plugin to infer the description of a document.
 
 ## Contents
 
+*   [What is this?](#what-is-this)
+*   [When should I use this?](#when-should-i-use-this)
 *   [Install](#install)
 *   [Use](#use)
 *   [API](#api)
     *   [`unified().use(rehypeInferDescriptionMeta, options?)`](#unifieduserehypeinferdescriptionmeta-options)
+*   [Types](#types)
+*   [Compatibility](#compatibility)
 *   [Security](#security)
 *   [Related](#related)
 *   [Contribute](#contribute)
 *   [License](#license)
 
+## What is this?
+
+This package is a [unified][] ([rehype][]) plugin to infer the description of a
+document.
+It supports different methods: a specific element, everything up to a comment,
+or up to a certain number of characters.
+
+**unified** is a project that transforms content with abstract syntax trees
+(ASTs).
+**rehype** adds support for HTML to unified.
+**vfile** is the virtual file interface used in unified.
+**hast** is the HTML AST that rehype uses.
+This is a rehype plugin that inspects hast and adds metadata to vfiles.
+
+## When should I use this?
+
+This plugin is particularly useful in combination with
+[`rehype-meta`][rehype-meta].
+When both are used together, a `<meta name=description>` is populated with the
+document’s description.
+
 ## Install
 
-This package is [ESM only](https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c):
-Node 12+ is needed to use it and it must be `import`ed instead of `require`d.
-
-[npm][]:
+This package is [ESM only](https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c).
+In Node.js (version 12.20+, 14.14+, or 16.0+), install with [npm][]:
 
 ```sh
 npm install rehype-infer-description-meta
 ```
 
+In Deno with [Skypack][]:
+
+```js
+import rehypeInferDescriptionMeta from 'https://cdn.skypack.dev/rehype-infer-description-meta@1?dts'
+```
+
+In browsers with [Skypack][]:
+
+```html
+<script type="module">
+  import rehypeInferDescriptionMeta from 'https://cdn.skypack.dev/rehype-infer-description-meta@1?min'
+</script>
+```
+
 ## Use
 
-Say `example.js` looks as follows:
+Say our module `example.js` looks as follows:
 
 ```js
 import {unified} from 'unified'
@@ -76,7 +111,9 @@ async function main(example) {
 }
 ```
 
-Now, running `node example` yields (note the `meta[name="description"]`):
+Now running `node example.js` yields:
+
+> 👉 **Note**: observe each `meta[name="description"]` being derived from `body`.
 
 ```html
 <!doctype html>
@@ -127,15 +164,19 @@ The default export is `rehypeInferDescriptionMeta`.
 
 ### `unified().use(rehypeInferDescriptionMeta, options?)`
 
-Plugin to infer file metadata of the document’s description.
-
-The description is inferred through three strategies:
+Infer the description from a document as file metadata.
+The result is stored on `file.data.meta.description`.
+It’s inferred through three strategies:
 
 1.  If `options.selector` is set and an element for that found, then the
     description is the text of that element
 2.  Otherwise, if a comment is found with the text of `options.comment`, then
     the description is the text up to that comment
 3.  Otherwise, the description is the text up to `options.truncateSize`
+
+##### `options`
+
+Configuration (optional).
 
 ##### `options.selector`
 
@@ -178,11 +219,26 @@ won’t be found at the end.
 
 ##### `options.inferDescriptionHast`
 
-Whether to expose `file.data.meta.descriptionHast` (`boolean`, default:
+Whether to also expose `file.data.meta.descriptionHast` (`boolean`, default:
 `false`).
 This is not used by `rehype-meta`, but could be useful to other plugins.
-This description includes the rich HTML elements rather than the plain text
-content.
+The value at `descriptionHast` contains the rich HTML elements rather than the
+plain text content.
+
+## Types
+
+This package is fully typed with [TypeScript][].
+The extra type `Options` is exported.
+
+## Compatibility
+
+Projects maintained by the unified collective are compatible with all maintained
+versions of Node.js.
+As of now, that is Node.js 12.20+, 14.14+, and 16.0+.
+Our projects sometimes work with older versions, but this is not guaranteed.
+
+This plugin works with `rehype-parse` version 3+, `rehype-stringify` version 3+,
+`rehype` version 4+, and `unified` version 6+.
 
 ## Security
 
@@ -191,15 +247,15 @@ Use of `rehype-infer-description-meta` is safe.
 ## Related
 
 *   [`rehype-document`](https://github.com/rehypejs/rehype-document)
-    — Wrap a document around a fragment
+    — wrap a fragment in a document
 *   [`rehype-meta`](https://github.com/rehypejs/rehype-meta)
-    — Add metadata to the head of a document
+    — add metadata to the head of a document
 *   [`unified-infer-git-meta`](https://github.com/unifiedjs/unified-infer-git-meta)
-    — Infer file metadata from Git
+    — infer file metadata from Git
 *   [`rehype-infer-title-meta`](https://github.com/rehypejs/rehype-infer-title-meta)
-    — Infer file metadata from the title of a document
+    — infer file metadata from the title of a document
 *   [`rehype-infer-reading-time-meta`](https://github.com/rehypejs/rehype-infer-reading-time-meta)
-    — Infer file metadata from the reading time of a document
+    — infer file metadata from the reading time of a document
 
 ## Contribute
 
@@ -245,17 +301,23 @@ abide by its terms.
 
 [npm]: https://docs.npmjs.com/cli/install
 
+[skypack]: https://www.skypack.dev
+
 [health]: https://github.com/rehypejs/.github
 
-[contributing]: https://github.com/rehypejs/.github/blob/HEAD/contributing.md
+[contributing]: https://github.com/rehypejs/.github/blob/main/contributing.md
 
-[support]: https://github.com/rehypejs/.github/blob/HEAD/support.md
+[support]: https://github.com/rehypejs/.github/blob/main/support.md
 
-[coc]: https://github.com/rehypejs/.github/blob/HEAD/code-of-conduct.md
+[coc]: https://github.com/rehypejs/.github/blob/main/code-of-conduct.md
 
 [license]: license
 
 [author]: https://wooorm.com
+
+[typescript]: https://www.typescriptlang.org
+
+[unified]: https://github.com/unifiedjs/unified
 
 [rehype]: https://github.com/rehypejs/rehype
 
