@@ -1,4 +1,6 @@
 /**
+ * @typedef {import('./complex-types.js')} DoNotTouchThisAsItIncludesAugmentation
+ *
  * @typedef {import('hast').Root} Root
  * @typedef {import('hast').Element} Element
  *
@@ -82,9 +84,7 @@ export default function rehypeInferDescriptionMeta(options = {}) {
       const matter = /** @type {Record<string, unknown>} */ (
         file.data.matter || {}
       )
-      const meta = /** @type {Record<string, unknown>} */ (
-        file.data.meta || (file.data.meta = {})
-      )
+      const meta = file.data.meta || (file.data.meta = {})
 
       removePosition(fragment, true)
 
