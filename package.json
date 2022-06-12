@@ -1,6 +1,6 @@
 {
   "name": "rehype-infer-description-meta",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "rehype plugin to infer file metadata from the document",
   "license": "MIT",
   "keywords": [
