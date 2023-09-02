@@ -1,4 +1,4 @@
-import type {Root, Element} from 'hast'
+import type {Element, Root} from 'hast'
 
 interface InferDescriptionMeta {
   /**
