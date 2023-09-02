@@ -4,18 +4,18 @@
   "description": "rehype plugin to infer file metadata from the document",
   "license": "MIT",
   "keywords": [
-    "unified",
+    "description",
+    "excerpt",
+    "file",
+    "hast",
+    "html",
+    "meta",
+    "plugin",
     "rehype",
     "rehype-plugin",
-    "plugin",
-    "html",
-    "hast",
-    "file",
-    "meta",
-    "description",
+    "summary",
     "truncate",
-    "excerpt",
-    "summary"
+    "unified"
   ],
   "repository": "rehypejs/rehype-infer-description-meta",
   "bugs": "https://github.com/rehypejs/rehype-infer-description-meta/issues",
@@ -63,18 +63,30 @@
   },
   "scripts": {
     "build": "tsc --build --clean && tsc --build && type-coverage",
-    "format": "remark . -qfo && prettier . -w --log-level warn && xo --fix",
+    "format": "remark . --frail --output --quiet && prettier . --log-level warn --write && xo --fix",
+    "prepack": "npm run build && npm run format",
+    "test": "npm run build && npm run format && npm run test-coverage",
     "test-api": "node --conditions development test.js",
-    "test-coverage": "c8 --check-coverage --branches 100 --functions 100 --lines 100 --statements 100 --reporter lcov node --conditions development test.js",
-    "test": "npm run build && npm run format && npm run test-coverage"
+    "test-coverage": "c8 --100 --check-coverage --reporter lcov npm run test-api"
   },
   "prettier": {
-    "tabWidth": 2,
-    "useTabs": false,
-    "singleQuote": true,
     "bracketSpacing": false,
+    "singleQuote": true,
     "semi": false,
-    "trailingComma": "none"
+    "tabWidth": 2,
+    "trailingComma": "none",
+    "useTabs": false
+  },
+  "remarkConfig": {
+    "plugins": [
+      "remark-preset-wooorm"
+    ]
+  },
+  "typeCoverage": {
+    "atLeast": 100,
+    "detail": true,
+    "ignoreCatch": true,
+    "strict": true
   },
   "xo": {
     "overrides": [
@@ -89,16 +101,5 @@
       }
     ],
     "prettier": true
-  },
-  "remarkConfig": {
-    "plugins": [
-      "preset-wooorm"
-    ]
-  },
-  "typeCoverage": {
-    "atLeast": 100,
-    "detail": true,
-    "strict": true,
-    "ignoreCatch": true
   }
 }
