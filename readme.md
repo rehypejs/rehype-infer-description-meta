@@ -262,7 +262,7 @@ versions of Node.js.
 When we cut a new major release, we drop support for unmaintained versions of
 Node.
 This means we try to keep the current release line,
-`rehype-infer-description-meta@^1`, compatible with Node.js 12.
+`rehype-infer-description-meta@^2`, compatible with Node.js 16.
 
 This plugin works with `rehype-parse` version 3+, `rehype-stringify` version 3+,
 `rehype` version 4+, and `unified` version 6+.
