@@ -2,14 +2,15 @@ import assert from 'node:assert/strict'
 import test from 'node:test'
 import {h} from 'hastscript'
 import {rehype} from 'rehype'
+import rehypeInferDescriptionMeta from 'rehype-infer-description-meta'
 import rehypeMeta from 'rehype-meta'
-import rehypeInferDescriptionMeta from './index.js'
 
 test('rehypeInferDescriptionMeta', async function (t) {
   await t.test('should expose the public api', async function () {
-    assert.deepEqual(Object.keys(await import('./index.js')).sort(), [
-      'default'
-    ])
+    assert.deepEqual(
+      Object.keys(await import('rehype-infer-description-meta')).sort(),
+      ['default']
+    )
   })
 
   await t.test('should truncate the document by default', async function () {
