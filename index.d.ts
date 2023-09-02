@@ -1,5 +1,8 @@
 import type {Element, Root} from 'hast'
 
+export type {Options} from './lib/index.js'
+export {default} from './lib/index.js'
+
 interface InferDescriptionMeta {
   /**
    * Description of the document (optional, example: `'The city has changed
@@ -27,7 +30,3 @@ declare module 'vfile' {
     meta: DataMapMeta
   }
 }
-
-// To do: remove.
-// eslint-disable-next-line @typescript-eslint/no-useless-empty-export
-export {}
