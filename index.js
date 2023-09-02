@@ -86,7 +86,7 @@ export default function rehypeInferDescriptionMeta(options = {}) {
       )
       const meta = file.data.meta || (file.data.meta = {})
 
-      removePosition(fragment, true)
+      removePosition(fragment, {force: true})
 
       if (!matter.description && !meta.description) {
         meta.description = toText(fragment)
