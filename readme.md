@@ -59,14 +59,14 @@ npm install rehype-infer-description-meta
 In Deno with [`esm.sh`][esmsh]:
 
 ```js
-import rehypeInferDescriptionMeta from 'https://esm.sh/rehype-infer-description-meta@1'
+import rehypeInferDescriptionMeta from 'https://esm.sh/rehype-infer-description-meta@2'
 ```
 
 In browsers with [`esm.sh`][esmsh]:
 
 ```html
 <script type="module">
-  import rehypeInferDescriptionMeta from 'https://esm.sh/rehype-infer-description-meta@1?bundle'
+  import rehypeInferDescriptionMeta from 'https://esm.sh/rehype-infer-description-meta@2?bundle'
 </script>
 ```
 
